@@ -1,447 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Your Food Account | FoodRush</title>
-    <!-- Google Fonts -->
+    <title>Food Express - Login</title>
+    <!-- Google Fonts - Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
+    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-theme"> <!-- Dark mode by default for that premium aesthetic -->
 
-    <!-- Interactive Particle Background Canvas -->
-    <canvas id="particle-canvas"></canvas>
+<body>
+    <div class="split-container">
+        <!-- Background mesh glow blobs -->
+        <div class="glow-blob glow-blob-1"></div>
+        <div class="glow-blob glow-blob-2"></div>
 
-    <!-- Floating Food SVGs Background Elements -->
-    <div class="floating-foods-container" aria-hidden="true">
-        <!-- Pizza -->
-        <svg class="floating-food food-pizza" viewBox="0 0 512 512" width="60" height="60">
-            <path fill="#FFD25A" d="M256,16v480c132.5,0,240-107.5,240-240S388.5,16,256,16z"/>
-            <path fill="#FFA400" d="M256,16c-132.5,0-240,107.5-240,240s107.5,240,240,240V16z"/>
-            <path fill="#FF4757" d="M256,32c123.7,0,224,100.3,224,224S379.7,480,256,480S32,379.7,32,256S132.3,32,256,32z"/>
-            <path fill="#FFE082" d="M256,48c114.9,0,208,93.1,208,208S370.9,464,256,464S48,370.9,48,256S141.1,48,256,48z"/>
-            <!-- Cheese Details & Pepperoni (Light Side) -->
-            <circle cx="340" cy="180" r="28" fill="#FF4757"/>
-            <circle cx="328" cy="168" r="28" fill="#FF5252"/>
-            <circle cx="380" cy="300" r="32" fill="#FF4757"/>
-            <circle cx="368" cy="288" r="32" fill="#FF5252"/>
-            <circle cx="280" cy="380" r="24" fill="#FF4757"/>
-            <circle cx="270" cy="370" r="24" fill="#FF5252"/>
-            <!-- Cheese Details & Pepperoni (Dark Side) -->
-            <circle cx="170" cy="180" r="28" fill="#E84118"/>
-            <circle cx="160" cy="170" r="28" fill="#FF4757"/>
-            <circle cx="130" cy="300" r="32" fill="#E84118"/>
-            <circle cx="120" cy="288" r="32" fill="#FF4757"/>
-            <circle cx="200" cy="370" r="26" fill="#E84118"/>
-            <circle cx="190" cy="360" r="26" fill="#FF4757"/>
-            <!-- Peppers -->
-            <rect x="290" y="240" width="12" height="30" rx="6" transform="rotate(45 290 240)" fill="#2ED573"/>
-            <rect x="180" y="240" width="12" height="30" rx="6" transform="rotate(-45 180 240)" fill="#26AF5C"/>
-            <rect x="240" y="110" width="12" height="30" rx="6" fill="#2ED573"/>
-        </svg>
-
-        <!-- Burger -->
-        <svg class="floating-food food-burger" viewBox="0 0 512 512" width="60" height="60">
-            <!-- Top Bun -->
-            <path fill="#FFA400" d="M32 240c0-100 80-180 180-180h88c100 0 180 80 180 180H32z"/>
-            <path fill="#FFB300" d="M220 60h36c100 0 180 80 180 180H220V60z"/>
-            <!-- Seeds -->
-            <ellipse cx="140" cy="140" rx="6" ry="12" fill="#FFE082" transform="rotate(30 140 140)"/>
-            <ellipse cx="230" cy="110" rx="6" ry="12" fill="#FFE082" transform="rotate(-15 230 110)"/>
-            <ellipse cx="300" cy="130" rx="6" ry="12" fill="#FFE082" transform="rotate(15 300 130)"/>
-            <ellipse cx="380" cy="160" rx="6" ry="12" fill="#FFE082" transform="rotate(45 380 160)"/>
-            <!-- Lettuce -->
-            <path fill="#2ED573" d="M16 240c0 15 20 20 40 20s40-10 60-10 40 20 60 20 40-10 60-10 40 20 60 20 40-10 60-10 40 20 60 20 40-5 40-20H16z"/>
-            <!-- Cheese -->
-            <polygon fill="#FFD25A" points="32,270 480,270 440,310 72,310"/>
-            <!-- Meat Patty -->
-            <rect x="24" y="310" width="464" height="60" rx="30" fill="#8B5A2B"/>
-            <rect x="220" y="310" width="268" height="60" rx="30" fill="#9C6634"/>
-            <!-- Bottom Bun -->
-            <path fill="#FFA400" d="M48 380h416c0 50-40 90-90 90H138c-50 0-90-40-90-90z"/>
-            <path fill="#FFB300" d="M220 380h244c0 50-40 90-90 90H220V380z"/>
-        </svg>
-
-        <!-- Drink -->
-        <svg class="floating-food food-drink" viewBox="0 0 512 512" width="55" height="55">
-            <!-- Cup Body -->
-            <path fill="#FF4757" d="M128,128l32,320c4,40,36,64,76,64h40c40,0,72-24,76-64l32-320H128z"/>
-            <path fill="#FF5252" d="M256,128v384h20c40,0,72-24,76-64l32-320H256z"/>
-            <!-- Cup Rim -->
-            <rect x="96" y="96" width="320" height="32" rx="16" fill="#F1F2F6"/>
-            <rect x="256" y="96" width="160" height="32" rx="16" fill="#FFFFFF"/>
-            <!-- Logo Circle on Cup -->
-            <circle cx="256" cy="288" r="48" fill="#FFFFFF"/>
-            <path fill="#FFA400" d="M256,256c-17.7,0-32,14.3-32,32s14.3,32,32,32V256z"/>
-            <!-- Straw -->
-            <rect x="240" y="0" width="32" height="112" rx="10" fill="#FFB300" transform="rotate(15 240 0)"/>
-            <path fill="#FFA400" d="M280,20 l10,-2.6 l-6,-24 l-10,2.6 z"/>
-        </svg>
-
-        <!-- Taco -->
-        <svg class="floating-food food-taco" viewBox="0 0 512 512" width="60" height="60">
-            <!-- Taco Shell -->
-            <path fill="#FFD25A" d="M32 256C32 132.3 132.3 32 256 32s224 100.3 224 224H32z" transform="rotate(-15 256 256)"/>
-            <!-- Meat Fillings -->
-            <path fill="#8B5A2B" d="M100 240c10-20 40-30 60-15s40 10 60 5 30-20 50-20 40 15 60 5 40-20 60-10c20 10 30 35 30 35H100z" transform="rotate(-15 256 256)"/>
-            <!-- Tomatoes -->
-            <circle cx="180" cy="180" r="16" fill="#FF4757" transform="rotate(-15 256 256)"/>
-            <circle cx="280" cy="160" r="20" fill="#FF4757" transform="rotate(-15 256 256)"/>
-            <circle cx="380" cy="200" r="16" fill="#FF4757" transform="rotate(-15 256 256)"/>
-            <!-- Lettuce bits -->
-            <path fill="#2ED573" d="M120,220 q15,-30 30,-10 t30,-20 t30,20 t30,-30 t30,25 t30,-15 t30,20" fill="none" stroke="#2ED573" stroke-width="16" stroke-linecap="round" transform="rotate(-15 256 256)"/>
-        </svg>
-    </div>
-
-    <!-- Header Navigation -->
-    <header class="navbar-header">
-        <div class="nav-container">
-            <a href="#" class="brand-logo" id="logo-link">
-                <div class="logo-icon-wrapper">
-                    <i class="fas fa-pizza-slice logo-orange"></i>
-                    <i class="fas fa-motorcycle bike-animation"></i>
-                </div>
-                <span class="brand-name">Food<span class="highlight">Rush</span></span>
-            </a>
-            
-            <!-- Desktop Navigation Links -->
-            <nav class="nav-menu-desktop">
-                <ul>
-                    <li><a href="#" class="nav-link active">Home</a></li>
-                    <li><a href="#" class="nav-link">Menu</a></li>
-                    <li><a href="#" class="nav-link">Offers</a></li>
-                    <li><a href="#" class="nav-link">Contact</a></li>
-                </ul>
-            </nav>
-
-            <div class="nav-actions">
-                <!-- Theme Toggle Button -->
-                <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle light/dark theme">
-                    <i class="fas fa-moon moon-icon"></i>
-                    <i class="fas fa-sun sun-icon"></i>
-                </button>
-
-                <!-- Action Button -->
-                <a href="#" class="btn-login-header">Login</a>
-
-                <!-- Mobile Hamburger Toggle -->
-                <button class="hamburger-menu" id="hamburger-btn" aria-label="Toggle navigation menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation Menu -->
-        <nav class="nav-menu-mobile" id="mobile-menu">
-            <ul>
-                <li><a href="#" class="mobile-nav-link active"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-utensils"></i> Menu</a></li>
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-percentage"></i> Offers</a></li>
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Main Registration Section -->
-    <main class="registration-wrapper">
-        <div class="registration-card-container">
-            <div class="registration-card">
-                
-                <!-- Registration Card Header -->
-                <div class="card-header-section">
-                    <div class="card-logo">
-                        <i class="fas fa-utensils"></i>
+        <!-- Left Panel: Glassmorphism Login Card -->
+        <div class="left-panel">
+            <div class="login-card-wrapper">
+                <div class="login-card">
+                    <!-- Logo -->
+                    <div class="logo-container">
+                        <svg class="logo-svg" width="38" height="38" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 17H22" stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round" />
+                            <path d="M5 20H19" stroke="url(#logo-grad)" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M6 14C6 9.58172 9.58172 6 14 6C15.8575 6 17.559 6.63343 18.9106 7.7"
+                                stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round" />
+                            <path d="M2 10C2.5 10 4 9.5 4 8" stroke="url(#logo-grad)" stroke-width="2"
+                                stroke-linecap="round" />
+                            <path d="M1 6C2 6 3 5 3 3.5" stroke="url(#logo-grad)" stroke-width="2"
+                                stroke-linecap="round" />
+                            <circle cx="14" cy="4.5" r="1.5" fill="url(#logo-grad)" />
+                            <defs>
+                                <linearGradient id="logo-grad" x1="2" y1="3" x2="22" y2="20"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#FF7E40" />
+                                    <stop stop-color="#FF3E3E" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="logo-text">Food<span class="highlight">Express</span></span>
                     </div>
-                    <h1 class="card-title">Create Your Food Account</h1>
-                    <p class="card-subtitle">Register to order delicious food online</p>
-                </div>
 
-                <!-- Social Signups -->
-                <div class="social-signup-container">
-                    <button class="social-btn google-btn" type="button">
-                        <i class="fab fa-google"></i>
-                        <span>Google</span>
-                    </button>
-                    <button class="social-btn facebook-btn" type="button">
-                        <i class="fab fa-facebook-f"></i>
-                        <span>Facebook</span>
-                    </button>
-                    <button class="social-btn instagram-btn" type="button">
-                        <i class="fab fa-instagram"></i>
-                        <span>Instagram</span>
-                    </button>
-                </div>
+                    <!-- Welcome Header -->
+                    <div class="card-header">
+                        <h2>Welcome Back</h2>
+                        <p>Please enter your details to sign in</p>
+                    </div>
 
-                <div class="form-divider">
-                    <span>Or register with email</span>
-                </div>
-
-                <!-- Registration Form -->
-                <form id="registration-form" novalidate>
-                    
-                    <div class="form-grid">
-                        
-                        <!-- Full Name Field -->
-                        <div class="form-group floating-group">
+                    <!-- Login Form -->
+                    <form id="loginForm" novalidate>
+                        <!-- Email Input -->
+                        <div class="input-group">
+                            <label for="email">Email Address</label>
                             <div class="input-wrapper">
-                                <i class="fas fa-user input-icon"></i>
-                                <input type="text" id="full-name" name="fullName" class="form-control" placeholder=" " required>
-                                <label for="full-name" class="floating-label">Full Name</label>
+                                <i class="fa-regular fa-envelope input-icon"></i>
+                                <input type="email" id="email" placeholder="name@example.com" autocomplete="email">
                             </div>
-                            <span class="error-msg" id="name-error" aria-live="polite"></span>
+                            <span class="error-message" id="emailError"></span>
                         </div>
 
-                        <!-- Email Field -->
-                        <div class="form-group floating-group">
+                        <!-- Password Input -->
+                        <div class="input-group">
+                            <label for="password">Password</label>
                             <div class="input-wrapper">
-                                <i class="fas fa-envelope input-icon"></i>
-                                <input type="email" id="email" name="email" class="form-control" placeholder=" " required>
-                                <label for="email" class="floating-label">Email Address</label>
-                            </div>
-                            <span class="error-msg" id="email-error" aria-live="polite"></span>
-                        </div>
-
-                        <!-- Phone Number Field -->
-                        <div class="form-group floating-group">
-                            <div class="input-wrapper">
-                                <i class="fas fa-phone input-icon"></i>
-                                <input type="tel" id="phone" name="phone" class="form-control" placeholder=" " maxlength="10" required>
-                                <label for="phone" class="floating-label">Phone Number</label>
-                            </div>
-                            <span class="error-msg" id="phone-error" aria-live="polite"></span>
-                        </div>
-
-                        <!-- Date of Birth Field -->
-                        <div class="form-group floating-group">
-                            <div class="input-wrapper date-wrapper">
-                                <i class="fas fa-calendar-alt input-icon"></i>
-                                <input type="date" id="dob" name="dob" class="form-control date-control" placeholder=" " required>
-                                <label for="dob" class="floating-label active-label">Date of Birth</label>
-                            </div>
-                            <span class="error-msg" id="dob-error" aria-live="polite"></span>
-                        </div>
-
-                        <!-- Favorite Food Category Field (Dropdown) -->
-                        <div class="form-group">
-                            <div class="input-wrapper select-wrapper">
-                                <i class="fas fa-burger input-icon"></i>
-                                <select id="fav-category" name="favCategory" class="form-control select-control" required>
-                                    <option value="" disabled selected hidden></option>
-                                    <option value="pizza">Pizza & Italian</option>
-                                    <option value="burger">Burgers & Fast Food</option>
-                                    <option value="sushi">Sushi & Asian</option>
-                                    <option value="indian">Indian Curries & Biryani</option>
-                                    <option value="mexican">Tacos & Mexican</option>
-                                    <option value="desserts">Desserts & Sweet Treats</option>
-                                    <option value="healthy">Healthy & Salads</option>
-                                </select>
-                                <label for="fav-category" class="select-floating-label">Favorite Food Category</label>
-                                <i class="fas fa-chevron-down select-arrow"></i>
-                            </div>
-                            <span class="error-msg" id="category-error" aria-live="polite"></span>
-                        </div>
-
-                        <!-- Gender Selection Field (Radio capsules) -->
-                        <div class="form-group gender-group">
-                            <label class="gender-section-title">Gender</label>
-                            <div class="gender-capsules">
-                                <label class="gender-capsule">
-                                    <input type="radio" name="gender" value="male" required>
-                                    <span class="capsule-box">
-                                        <i class="fas fa-mars"></i> Male
-                                    </span>
-                                </label>
-                                <label class="gender-capsule">
-                                    <input type="radio" name="gender" value="female">
-                                    <span class="capsule-box">
-                                        <i class="fas fa-venus"></i> Female
-                                    </span>
-                                </label>
-                                <label class="gender-capsule">
-                                    <input type="radio" name="gender" value="other">
-                                    <span class="capsule-box">
-                                        <i class="fas fa-genderless"></i> Other
-                                    </span>
-                                </label>
-                            </div>
-                            <span class="error-msg" id="gender-error" aria-live="polite"></span>
-                        </div>
-
-                        <!-- Delivery Address Field (Full Width Grid Span) -->
-                        <div class="form-group floating-group address-group">
-                            <div class="input-wrapper">
-                                <i class="fas fa-map-marker-alt input-icon address-icon"></i>
-                                <textarea id="address" name="address" class="form-control text-area-control" placeholder=" " rows="2" required></textarea>
-                                <label for="address" class="floating-label">Delivery Address</label>
-                            </div>
-                            <span class="error-msg" id="address-error" aria-live="polite"></span>
-                        </div>
-
-                        <!-- Password Field -->
-                        <div class="form-group floating-group password-group">
-                            <div class="input-wrapper">
-                                <i class="fas fa-lock input-icon"></i>
-                                <input type="password" id="password" name="password" class="form-control" placeholder=" " required>
-                                <label for="password" class="floating-label">Password</label>
-                                <button type="button" class="password-toggle-btn" aria-label="Toggle show password" data-target="password">
-                                    <i class="fas fa-eye-slash eye-icon"></i>
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <input type="password" id="password" placeholder="••••••••"
+                                    autocomplete="current-password">
+                                <button type="button" id="togglePassword" class="password-toggle-btn"
+                                    aria-label="Toggle password visibility">
+                                    <i class="fa-regular fa-eye" id="eyeIcon"></i>
                                 </button>
                             </div>
-                            <!-- Strength Indicator -->
-                            <div class="strength-meter-container">
-                                <div class="strength-bar" id="strength-bar"></div>
-                                <span class="strength-text" id="strength-text">Password Strength</span>
-                            </div>
-                            <span class="error-msg" id="password-error" aria-live="polite"></span>
+                            <span class="error-message" id="passwordError"></span>
                         </div>
 
-                        <!-- Confirm Password Field -->
-                        <div class="form-group floating-group">
-                            <div class="input-wrapper">
-                                <i class="fas fa-lock input-icon"></i>
-                                <input type="password" id="confirm-password" name="confirmPassword" class="form-control" placeholder=" " required>
-                                <label for="confirm-password" class="floating-label">Confirm Password</label>
-                                <button type="button" class="password-toggle-btn" aria-label="Toggle show confirm password" data-target="confirm-password">
-                                    <i class="fas fa-eye-slash eye-icon"></i>
-                                </button>
-                            </div>
-                            <span class="error-msg" id="confirm-error" aria-live="polite"></span>
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="rememberMe">
+                                <span class="custom-checkbox"></span>
+                                Remember Me
+                            </label>
+                            <a href="#" class="forgot-link">Forgot Password?</a>
                         </div>
 
+                        <!-- Login Button -->
+                        <button type="submit" id="loginBtn" class="btn btn-primary">
+                            <span class="btn-text">Sign In</span>
+                            <span class="spinner" id="btnSpinner"></span>
+                        </button>
+                    </form>
+
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span>or sign in with</span>
                     </div>
 
-                    <!-- Terms and Conditions Checkbox -->
-                    <div class="form-group terms-group">
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" id="terms-checkbox" name="terms" required>
-                            <span class="checkmark-box">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            <span class="terms-label-text">
-                                I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>
-                            </span>
-                        </label>
-                        <span class="error-msg" id="terms-error" aria-live="polite"></span>
+                    <!-- Social Login Buttons -->
+                    <div class="social-buttons">
+                        <button class="btn btn-social btn-google">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                                alt="Google logo" class="social-icon-img">
+                            <span>Google</span>
+                        </button>
+                        <button class="btn btn-social btn-facebook">
+                            <i class="fa-brands fa-facebook-f social-icon"></i>
+                            <span>Facebook</span>
+                        </button>
                     </div>
 
-                    <!-- Register Button -->
-                    <button type="submit" class="btn-register-submit" id="submit-btn">
-                        <span class="btn-text">Register Now</span>
-                        <div class="btn-loader" aria-hidden="true">
-                            <div class="spinner"></div>
-                        </div>
-                    </button>
-
-                </form>
-
-                <!-- Card Footer / Login Link -->
-                <div class="card-footer-login">
-                    <p>Already have an account? <a href="#" class="login-link">Login here</a></p>
+                    <!-- Bottom Text -->
+                    <p class="register-text">
+                        Don't have an account? <a href="register.html" class="register-link">Register</a>
+                    </p>
                 </div>
-
             </div>
         </div>
-    </main>
 
-    <!-- Success Modal Popup -->
-    <div class="success-modal-backdrop" id="success-modal" aria-hidden="true" role="dialog">
-        <div class="success-modal-card">
-            <div class="success-checkmark-circle">
-                <!-- Draw-in SVG Checkmark -->
-                <svg class="checkmark-svg" viewBox="0 0 52 52">
-                    <circle class="checkmark-circle-line" cx="26" cy="26" r="25" fill="none"/>
-                    <path class="checkmark-check-line" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                </svg>
+        <!-- Right Panel: Modern 3D Illustration & Banner -->
+        <div class="right-panel">
+            <div class="floating-bg-icons">
+                <span class="bg-icon">🍔</span>
+                <span class="bg-icon">🍕</span>
+                <span class="bg-icon">🍟</span>
+                <span class="bg-icon">🍩</span>
+                <span class="bg-icon">🥑</span>
+                <span class="bg-icon">🌮</span>
             </div>
-            <h2 class="modal-success-title">Registration Successful!</h2>
-            <p class="modal-success-msg">Welcome to FoodRush! Your gourmet journey starts now. We are customizing your delivery dashboard.</p>
-            
-            <div class="redirect-progress-container">
-                <span class="redirect-countdown-text">Redirecting to Dashboard in <span id="countdown-num">3</span> seconds...</span>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" id="redirect-progress-fill"></div>
-                </div>
+            <div class="illustration-content">
+                <img src="login_illustration.png" alt="Food Express Delivery" class="delivery-img">
+                <h1 class="delivery-heading">Delicious Food Delivered Fast</h1>
+                <p class="delivery-sub">Order your favorite meals anytime, anywhere</p>
             </div>
         </div>
     </div>
 
-    <!-- Social OAuth Simulator Modal -->
-    <div class="success-modal-backdrop" id="social-auth-modal" aria-hidden="true" role="dialog">
-        <div class="success-modal-card social-auth-card">
-            <div class="social-auth-logo" id="social-auth-logo">
-                <i class="fab fa-google"></i>
-            </div>
-            <h2 class="modal-success-title" id="social-auth-title">Connecting to Google...</h2>
-            <p class="modal-success-msg" id="social-auth-msg">Establishing a secure connection to import profile details...</p>
-            
-            <div class="social-auth-steps">
-                <div class="auth-step active" id="step-connect">
-                    <span class="step-icon-wrapper"><i class="fas fa-circle-notch fa-spin text-accent"></i></span>
-                    <span>Secure Connection</span>
-                </div>
-                <div class="auth-step" id="step-auth">
-                    <span class="step-icon-wrapper"><i class="far fa-circle"></i></span>
-                    <span>Profile Authorization</span>
-                </div>
-                <div class="auth-step" id="step-import">
-                    <span class="step-icon-wrapper"><i class="far fa-circle"></i></span>
-                    <span>Importing Information</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Page Footer -->
-    <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-section brand-info-col">
-                <a href="#" class="footer-brand">
-                    <i class="fas fa-pizza-slice logo-orange"></i>
-                    <span class="brand-name">Food<span class="highlight">Rush</span></span>
-                </a>
-                <p class="footer-about">Ordering delicious culinary experiences, delivered hot and fresh right to your doorstep. Satisfy your cravings in a rush.</p>
-                <div class="footer-socials">
-                    <a href="#" class="social-icon-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-section quick-links-col">
-                <h3 class="footer-title">Quick Links</h3>
-                <ul class="footer-links-list">
-                    <li><a href="#"><i class="fas fa-angle-right"></i> About Us</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i> Food Menu</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i> Track Order</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i> Refund Policy</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section contact-info-col">
-                <h3 class="footer-title">Contact Support</h3>
-                <ul class="footer-contact-list">
-                    <li><i class="fas fa-phone-alt"></i> <span>+1 (800) 555-RUSH</span></li>
-                    <li><i class="fas fa-envelope"></i> <span>support@foodrush.com</span></li>
-                    <li><i class="fas fa-map-marker-alt"></i> <span>100 Gourmet Plaza, Flavor Town, NY 10001</span></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 FoodRush. Designed with passion for premium tastes. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Custom JS -->
+    <!-- Custom Script -->
     <script src="script.js"></script>
 </body>
+
 </html>
