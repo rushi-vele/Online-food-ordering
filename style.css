@@ -583,6 +583,194 @@ body {
 }
 
 /* ==========================================================================
+   Register Page Specific Styles (Floating Labels & Custom Radio Buttons)
+   ========================================================================== */
+
+/* Floating Labels */
+.floating-group {
+  position: relative;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.floating-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.floating-wrapper input {
+  width: 100%;
+  padding: 22px 16px 6px 46px; /* Space on top to show label when floated, and space on left for icon */
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  color: var(--color-text-dark);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--border-radius-md);
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.floating-wrapper input::placeholder {
+  color: transparent;
+}
+
+.floating-wrapper label {
+  position: absolute;
+  left: 46px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  font-weight: 400;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
+/* Float label to top when focused or not empty */
+.floating-wrapper input:focus ~ label,
+.floating-wrapper input:not(:placeholder-shown) ~ label {
+  top: 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.floating-wrapper input:focus {
+  background: var(--color-white);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15);
+}
+
+.floating-wrapper .input-icon {
+  position: absolute;
+  left: 16px;
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  transition: var(--transition-smooth);
+  pointer-events: none;
+}
+
+.floating-wrapper input:focus ~ .input-icon {
+  color: var(--color-primary);
+}
+
+.floating-wrapper .password-toggle-btn {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.floating-wrapper .password-toggle-btn:hover {
+  color: var(--color-primary);
+}
+
+/* Input validation error states for floating group */
+.floating-group.error input {
+  border-color: var(--color-error);
+  background: rgba(230, 57, 70, 0.03);
+}
+
+.floating-group.error input:focus {
+  box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.15);
+}
+
+.floating-group.error .error-message {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gender Selection Styles */
+.gender-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.gender-group > label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--color-text-dark);
+  margin-bottom: 8px;
+}
+
+.gender-radio-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.radio-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  color: var(--color-text-light);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.radio-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-radio {
+  height: 18px;
+  width: 18px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+.radio-container:hover input ~ .custom-radio {
+  border-color: var(--color-primary);
+}
+
+.radio-container input:checked ~ .custom-radio {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.custom-radio::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+}
+
+.radio-container input:checked ~ .custom-radio::after {
+  display: block;
+}
+
+.gender-group.error .error-message {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
    Responsive Design Media Queries
    ========================================================================== */
 
