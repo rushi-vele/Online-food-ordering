@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Express - Login</title>
+    <!-- Google Fonts - Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="split-container">
+        <!-- Background mesh glow blobs -->
+        <div class="glow-blob glow-blob-1"></div>
+        <div class="glow-blob glow-blob-2"></div>
+
+        <!-- Left Panel: Glassmorphism Login Card -->
+        <div class="left-panel">
+            <div class="login-card-wrapper">
+                <div class="login-card">
+                    <!-- Logo -->
+                    <div class="logo-container">
+                        <svg class="logo-svg" width="38" height="38" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 17H22" stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round" />
+                            <path d="M5 20H19" stroke="url(#logo-grad)" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M6 14C6 9.58172 9.58172 6 14 6C15.8575 6 17.559 6.63343 18.9106 7.7"
+                                stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round" />
+                            <path d="M2 10C2.5 10 4 9.5 4 8" stroke="url(#logo-grad)" stroke-width="2"
+                                stroke-linecap="round" />
+                            <path d="M1 6C2 6 3 5 3 3.5" stroke="url(#logo-grad)" stroke-width="2"
+                                stroke-linecap="round" />
+                            <circle cx="14" cy="4.5" r="1.5" fill="url(#logo-grad)" />
+                            <defs>
+                                <linearGradient id="logo-grad" x1="2" y1="3" x2="22" y2="20"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#FF7E40" />
+                                    <stop stop-color="#FF3E3E" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="logo-text">Food<span class="highlight">Express</span></span>
+                    </div>
+
+                    <!-- Welcome Header -->
+                    <div class="card-header">
+                        <h2>Welcome Back</h2>
+                        <p>Please enter your details to sign in</p>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="loginForm" novalidate>
+                        <!-- Email Input -->
+                        <div class="input-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-wrapper">
+                                <i class="fa-regular fa-envelope input-icon"></i>
+                                <input type="email" id="email" placeholder="name@example.com" autocomplete="email">
+                            </div>
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+
+                        <!-- Password Input -->
+                        <div class="input-group">
+                            <label for="password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <input type="password" id="password" placeholder="••••••••"
+                                    autocomplete="current-password">
+                                <button type="button" id="togglePassword" class="password-toggle-btn"
+                                    aria-label="Toggle password visibility">
+                                    <i class="fa-regular fa-eye" id="eyeIcon"></i>
+                                </button>
+                            </div>
+                            <span class="error-message" id="passwordError"></span>
+                        </div>
+
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="rememberMe">
+                                <span class="custom-checkbox"></span>
+                                Remember Me
+                            </label>
+                            <a href="#" class="forgot-link">Forgot Password?</a>
+                        </div>
+
+                        <!-- Login Button -->
+                        <button type="submit" id="loginBtn" class="btn btn-primary">
+                            <span class="btn-text">Sign In</span>
+                            <span class="spinner" id="btnSpinner"></span>
+                        </button>
+                    </form>
+
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span>or sign in with</span>
+                    </div>
+
+                    <!-- Social Login Buttons -->
+                    <div class="social-buttons">
+                        <button class="btn btn-social btn-google">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                                alt="Google logo" class="social-icon-img">
+                            <span>Google</span>
+                        </button>
+                        <button class="btn btn-social btn-facebook">
+                            <i class="fa-brands fa-facebook-f social-icon"></i>
+                            <span>Facebook</span>
+                        </button>
+                    </div>
+
+                    <!-- Bottom Text -->
+                    <p class="register-text">
+                        Don't have an account? <a href="register.html" class="register-link">Register</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Modern 3D Illustration & Banner -->
+        <div class="right-panel">
+            <div class="floating-bg-icons">
+                <span class="bg-icon">🍔</span>
+                <span class="bg-icon">🍕</span>
+                <span class="bg-icon">🍟</span>
+                <span class="bg-icon">🍩</span>
+                <span class="bg-icon">🥑</span>
+                <span class="bg-icon">🌮</span>
+            </div>
+            <div class="illustration-content">
+                <img src="login_illustration.png" alt="Food Express Delivery" class="delivery-img">
+                <h1 class="delivery-heading">Delicious Food Delivered Fast</h1>
+                <p class="delivery-sub">Order your favorite meals anytime, anywhere</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>

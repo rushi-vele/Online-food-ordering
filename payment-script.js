@@ -7,11 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. STATE SYSTEM
     // ------------------------------------------
     const state = {
-        cart: [
-            { id: 1, name: 'Truffle Mushroom Risotto', price: 380, qty: 1, veg: true },
-            { id: 2, name: 'Avocado & Feta Sourdough', price: 190, qty: 2, veg: true },
-            { id: 3, name: 'Classic Roasted Tiramisu', price: 250, qty: 1, veg: false }
-        ],
+        cart: localStorage.getItem('foodExpressCart') 
+            ? JSON.parse(localStorage.getItem('foodExpressCart')) 
+            : [
+                { id: 1, name: 'Truffle Mushroom Risotto', price: 380, qty: 1, veg: true },
+                { id: 2, name: 'Avocado & Feta Sourdough', price: 190, qty: 2, veg: true },
+                { id: 3, name: 'Classic Roasted Tiramisu', price: 250, qty: 1, veg: false }
+            ],
         tip: 0,
         coupon: null,
         goldMember: false,

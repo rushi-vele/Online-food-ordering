@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Express - Project Dashboard</title>
+    <!-- Google Fonts - Poppins & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Dashboard specific styles -->
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <!-- Background mesh glow blobs (Consistent with login theme) -->
+    <div class="glow-blob glow-blob-1"></div>
+    <div class="glow-blob glow-blob-2"></div>
+    <div class="glow-blob glow-blob-3"></div>
+
+    <div class="dashboard-container">
+        <!-- Navigation Header -->
+        <header class="dashboard-header">
+            <div class="logo-container">
+                <svg class="logo-svg" width="34" height="34" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 17H22" stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round" />
+                    <path d="M5 20H19" stroke="url(#logo-grad)" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M6 14C6 9.58172 9.58172 6 14 6C15.8575 6 17.559 6.63343 18.9106 7.7"
+                        stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="14" cy="4.5" r="1.5" fill="url(#logo-grad)" />
+                    <defs>
+                        <linearGradient id="logo-grad" x1="2" y1="3" x2="22" y2="20"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FF7E40" />
+                            <stop stop-color="#FF3E3E" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="logo-text">Food<span class="highlight">Express</span></span>
+            </div>
+
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-link active"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="register.html" class="nav-link"><i class="fa-solid fa-user-plus"></i> Register</a>
+                <a href="payment.html" class="nav-link"><i class="fa-solid fa-credit-card"></i> Payment Checkout</a>
+                <a href="index.html" class="nav-link btn-logout" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </nav>
+        </header>
+
+        <!-- Welcome Banner -->
+        <section class="welcome-banner">
+            <div class="welcome-content">
+                <h1>Food Express Project Dashboard</h1>
+                <p>Welcome! This dashboard links together the core pages of the project. Test account registration, configure credit card payments, simulate checkout flows, and track deliveries.</p>
+            </div>
+            <div class="user-profile-widget">
+                <div class="user-avatar"><i class="fa-solid fa-circle-user"></i></div>
+                <div class="user-info">
+                    <span class="user-name" id="profileName">Demo User</span>
+                    <span class="user-status"><span class="status-dot"></span> Active Session</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Shortcut Cards -->
+        <main class="dashboard-grid">
+            <!-- Card 1: User Registration -->
+            <div class="feature-card">
+                <div class="card-glow"></div>
+                <div class="card-icon"><i class="fa-solid fa-user-shield"></i></div>
+                <h3>Registration Page</h3>
+                <p>Features standard phone verification layout, float-labels, custom radios, and real-time live input field validations.</p>
+                <a href="register.html" class="card-btn">Go to Register <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Card 2: Secure Payment & Checkout -->
+            <div class="feature-card">
+                <div class="card-glow"></div>
+                <div class="card-icon"><i class="fa-solid fa-wallet"></i></div>
+                <h3>Payment Page</h3>
+                <p>Simulates real-time interactive credit card previews, active coupons, support partner tipping, OTP verification, and order delivery status tracking.</p>
+                <a href="payment.html" class="card-btn">Go to Checkout <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Card 3: Account Sign In -->
+            <div class="feature-card">
+                <div class="card-glow"></div>
+                <div class="card-icon"><i class="fa-solid fa-lock-open"></i></div>
+                <h3>Login Portal</h3>
+                <p>Features password-toggle triggers, custom animation styles, shake validation alerts, and loading spinner controls.</p>
+                <a href="index.html" class="card-btn">Go to Login <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </main>
+
+        <!-- Menu Section and Shopping Cart -->
+        <section class="menu-cart-section">
+            <div class="menu-container">
+                <div class="section-title">
+                    <h2><i class="fa-solid fa-utensils"></i> Explore Our Premium Menu</h2>
+                    <p>Select delicious dishes to add to your order. They will be carried directly to the payment checkout page.</p>
+                </div>
+                
+                <div class="menu-grid" id="menuGrid">
+                    <!-- Dynamic Menu Items populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Dashboard Mini-Cart Widget -->
+            <aside class="cart-widget">
+                <div class="cart-header">
+                    <h3><i class="fa-solid fa-shopping-basket"></i> Your Selection</h3>
+                    <span class="badge" id="cartBadgeCount">0</span>
+                </div>
+                <div class="cart-items" id="cartWidgetItems">
+                    <div class="cart-empty-message">
+                        <i class="fa-solid fa-plate-wheat"></i>
+                        <p>Your cart is empty. Add some gourmet items from the menu!</p>
+                    </div>
+                </div>
+                <div class="cart-footer" id="cartWidgetFooter" style="display: none;">
+                    <div class="cart-total-row">
+                        <span>Subtotal:</span>
+                        <strong id="cartWidgetTotal">₹0</strong>
+                    </div>
+                    <button class="checkout-submit-btn" id="proceedCheckoutBtn">
+                        Proceed to Checkout <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </aside>
+        </section>
+    </div>
+
+    <!-- Script file -->
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

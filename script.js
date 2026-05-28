@@ -112,6 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('🎉 Login successful! Redirecting to dashboard...');
             // Reset form
             loginForm.reset();
+            // Redirect to dashboard
+            window.location.href = 'dashboard.html';
         }, 2000);
     });
 

@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Food Express Master App Stylesheet - SPA View Orchestrator
+   ========================================================================== */
+
+/* Import existing stylesheets */
+@import url("style.css");
+@import url("dashboard.css");
+@import url("payment-style.css");
+
+/* 1. SPA Tab Management */
+.tab-view {
+    display: none !important;
+}
+
+.tab-view.active {
+    display: block !important;
+    animation: fadeInTab 0.4s ease-out forwards;
+}
+
+/* Flex layout overrides for specific page structures */
+#login-tab.active, 
+#register-tab.active {
+    display: flex !important;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+/* 2. Unified Master Layout */
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #090D16;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Master Navigation Header (Only visible when logged in) */
+.app-master-header {
+    display: none; /* Hidden by default */
+    width: 100%;
+    max-width: 1280px;
+    margin: 30px auto 0 auto;
+    z-index: 100;
+}
+
+body.logged-in .app-master-header {
+    display: flex;
+}
+
+/* Workspace Wrapper when Logged In */
+.app-main-content {
+    width: 100%;
+    flex-grow: 1;
+}
+
+/* 3. Adjustments and Fixes for Integrated Views */
+
+/* Dashboard Layout alignment inside SPA */
+body.logged-in .dashboard-container {
+    padding-top: 20px; /* Reduces extra padding since we have the top header */
+}
+
+/* Checkout Page adjustments when integrated */
+body.logged-in .main-header {
+    display: none; /* Hide Checkout's standalone header because we use Master Header */
+}
+
+body.logged-in .checkout-wrapper {
+    margin-top: 10px;
+    padding-top: 10px;
+    min-height: auto;
+}
+
+/* Animations */
+@keyframes fadeInTab {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fix visual cards and buttons */
+.welcome-banner {
+    margin-bottom: 5px;
+}
