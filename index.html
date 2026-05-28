@@ -15,32 +15,31 @@
 </head>
 <body>
   <div class="split-container">
-    <!-- Left Panel: Delivery Illustration & Banner -->
-    <div class="left-panel">
-      <div class="floating-bg-icons">
-        <span class="bg-icon">🍔</span>
-        <span class="bg-icon">🍕</span>
-        <span class="bg-icon">🍟</span>
-        <span class="bg-icon">🍩</span>
-        <span class="bg-icon">🥑</span>
-        <span class="bg-icon">🌮</span>
-      </div>
-      <div class="illustration-content">
-        <img src="delivery.png" alt="Food Express Delivery" class="delivery-img">
-        <h1 class="delivery-heading">Delicious Food Delivered Fast</h1>
-        <p class="delivery-sub">Order your favorite meals anytime, anywhere</p>
-      </div>
-    </div>
+    <!-- Background mesh glow blobs -->
+    <div class="glow-blob glow-blob-1"></div>
+    <div class="glow-blob glow-blob-2"></div>
 
-    <!-- Right Panel: Glassmorphism Login Card -->
-    <div class="right-panel">
+    <!-- Left Panel: Glassmorphism Login Card -->
+    <div class="left-panel">
       <div class="login-card-wrapper">
         <div class="login-card">
           <!-- Logo -->
           <div class="logo-container">
-            <span class="logo-icon">🍔</span>
-            <span class="logo-text">Food <span class="highlight">Express</span></span>
-            <span class="logo-emojis">🍕🍟</span>
+            <svg class="logo-svg" width="38" height="38" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 17H22" stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M5 20H19" stroke="url(#logo-grad)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M6 14C6 9.58172 9.58172 6 14 6C15.8575 6 17.559 6.63343 18.9106 7.7" stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M2 10C2.5 10 4 9.5 4 8" stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M1 6C2 6 3 5 3 3.5" stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="14" cy="4.5" r="1.5" fill="url(#logo-grad)"/>
+              <defs>
+                <linearGradient id="logo-grad" x1="2" y1="3" x2="22" y2="20" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FF7E40"/>
+                  <stop stop-color="#FF3E3E"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="logo-text">Food<span class="highlight">Express</span></span>
           </div>
 
           <!-- Welcome Header -->
@@ -113,6 +112,23 @@
             Don't have an account? <a href="#" class="register-link">Register</a>
           </p>
         </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Modern 3D Illustration & Banner -->
+    <div class="right-panel">
+      <div class="floating-bg-icons">
+        <span class="bg-icon">🍔</span>
+        <span class="bg-icon">🍕</span>
+        <span class="bg-icon">🍟</span>
+        <span class="bg-icon">🍩</span>
+        <span class="bg-icon">🥑</span>
+        <span class="bg-icon">🌮</span>
+      </div>
+      <div class="illustration-content">
+        <img src="login_illustration.png" alt="Food Express Delivery" class="delivery-img">
+        <h1 class="delivery-heading">Delicious Food Delivered Fast</h1>
+        <p class="delivery-sub">Order your favorite meals anytime, anywhere</p>
       </div>
     </div>
   </div>
