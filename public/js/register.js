@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Reset form fields
       registerForm.reset();
       // Redirect back to login page
-      window.location.href = 'index.html';
+      window.location.href = 'login.html';
     }, 2000);
   });
 

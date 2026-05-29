@@ -1,0 +1,24 @@
+{
+  "name": "gourmet-express",
+  "version": "1.0.0",
+  "description": "Premium Food Ordering Full-Stack Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": [
+    "food",
+    "delivery",
+    "express",
+    "node",
+    "landing-page",
+    "html5",
+    "css3",
+    "javascript"
+  ],
+  "author": "GourmetExpress Team",
+  "license": "ISC"
+}

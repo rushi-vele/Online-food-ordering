@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Craving something delicious? Order premium quality food from top local restaurants and get it delivered super fast directly to your door.">
+    <title>GourmetExpress | Premium Food Delivery</title>
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+    <!-- Screen Overlay / Loading Effect -->
+    <div id="loader" class="loader-container">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <span class="loader-logo">GourmetExpress</span>
+        </div>
+    </div>
+
+    <!-- Notification Toast for Cart / Interactive Feedback -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle toast-icon"></i>
+        <span id="toast-message">Item added to cart!</span>
+    </div>
+
+    <!-- Sticky Navigation Bar -->
+    <header class="navbar-header" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" id="logo-link">
+                <i class="fas fa-fire nav-logo-icon"></i>
+                <span class="logo-text">Gourmet<span class="gradient-text">Express</span></span>
+            </a>
+            
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#hero" class="nav-link active">Home</a></li>
+                    <li><a href="#categories" class="nav-link">Categories</a></li>
+                    <li><a href="#restaurants" class="nav-link">Restaurants</a></li>
+                    <li><a href="#offers" class="nav-link">Offers</a></li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#testimonials" class="nav-link">Reviews</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle light/dark theme">
+                    <i class="fas fa-sun sun-icon"></i>
+                    <i class="fas fa-moon moon-icon"></i>
+                </button>
+
+                <!-- Search Icon trigger (mobile/desktop responsive layout) -->
+                <button class="nav-search-trigger" id="search-trigger" aria-label="Quick search">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <!-- Cart Button -->
+                <button class="cart-btn-nav" id="cart-nav" aria-label="Shopping Cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </button>
+
+                <!-- Checkout Button -->
+                <a href="payment.html" class="btn-signin glow-btn-alt" id="checkout-btn-nav" style="background: var(--gradient-amber); margin-right: 10px; display: none;">Checkout</a>
+
+                <!-- Sign In Button -->
+                <a href="login.html" class="btn-signin glow-btn">Sign In</a>
+
+                <!-- Mobile Menu Hamburger -->
+                <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Full-Screen Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-bg-overlay"></div>
+            <div class="hero-content-wrapper">
+                <div class="hero-content">
+                    <div class="hero-badge scroll-reveal" data-origin="top" data-delay="100">
+                        <i class="fas fa-truck-fast"></i> Free delivery on your first order
+                    </div>
+                    <h1 class="hero-title scroll-reveal" data-origin="left" data-delay="200">
+                        Delicious Food <br><span class="gradient-text">Delivered Fast</span>
+                    </h1>
+                    <p class="hero-subtitle scroll-reveal" data-origin="left" data-delay="300">
+                        Satisfy your cravings with premium meals from top-rated restaurants, delivered fresh and hot to your doorstep in under 30 minutes.
+                    </p>
+
+                    <!-- Search Bar Component -->
+                    <div class="search-bar-container scroll-reveal" data-origin="bottom" data-delay="400">
+                        <div class="location-picker">
+                            <i class="fas fa-map-marker-alt location-icon"></i>
+                            <select id="location-select" class="location-select" aria-label="Select location">
+                                <option value="hyd" selected>Hyderabad, India</option>
+                                <option value="ny">Manhattan, NY</option>
+                                <option value="la">Los Angeles, CA</option>
+                                <option value="sf">San Francisco, CA</option>
+                                <option value="ch">Chicago, IL</option>
+                            </select>
+                        </div>
+                        <div class="search-divider"></div>
+                        <div class="dish-search">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="hero-search-input" placeholder="Search for sushi, burgers, pizza..." aria-label="Search dishes or restaurants">
+                            <ul id="search-suggestions" class="search-suggestions hidden">
+                                <!-- Suggestions populated by JS -->
+                            </ul>
+                        </div>
+                        <button class="btn-search-go" id="hero-search-btn">
+                            <span>Search</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="hero-ctas scroll-reveal" data-origin="bottom" data-delay="500">
+                        <a href="#restaurants" class="btn-primary glow-btn-alt">Order Now</a>
+                        <a href="#gallery" class="btn-secondary">Explore Menu</a>
+                    </div>
+
+                    <!-- Statistics / Social Proof -->
+                    <div class="hero-stats scroll-reveal" data-origin="bottom" data-delay="600">
+                        <div class="stat-item">
+                            <span class="stat-num">500+</span>
+                            <span class="stat-label">Restaurants</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-num">20k+</span>
+                            <span class="stat-label">Active Users</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-num">4.9★</span>
+                            <span class="stat-label">App Rating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Scroll Indicator -->
+            <a href="#offers" class="scroll-down-indicator" aria-label="Scroll down">
+                <span class="mouse-icon">
+                    <span class="mouse-wheel"></span>
+                </span>
+                <span class="scroll-text">Scroll to explore</span>
+            </a>
+        </section>
+
+        <!-- Special Offers Section -->
+        <section id="offers" class="offers-section section-padding">
+            <div class="container">
+                <div class="section-header scroll-reveal" data-origin="top">
+                    <span class="section-tagline">Deals of the Day</span>
+                    <h2 class="section-title">Special Offers & <span class="gradient-text">Discounts</span></h2>
+                    <p class="section-subtitle">Grab the best savings on your favorite cuisines. Limited time availability!</p>
+                </div>
+
+                <div class="offers-grid">
+                    <!-- Offer 1 -->
+                    <div class="offer-card offer-card-pink scroll-reveal" data-origin="left" data-delay="100">
+                        <div class="offer-badge">50% OFF</div>
+                        <div class="offer-details">
+                            <h3>First Order Special</h3>
+                            <p>Get 50% off up to ₹150 on your very first order.</p>
+                            <div class="coupon-code-container">
+                                <span>Code: </span>
+                                <span class="coupon-code">WELCOME50</span>
+                                <button class="copy-coupon-btn" data-code="WELCOME50" aria-label="Copy coupon WELCOME50">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="offer-visual">
+                            <i class="fas fa-gift floating-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Offer 2 -->
+                    <div class="offer-card offer-card-violet scroll-reveal" data-origin="bottom" data-delay="200">
+                        <div class="offer-badge">FREE</div>
+                        <div class="offer-details">
+                            <h3>Free Delivery Service</h3>
+                            <p>Enjoy zero delivery fee on orders over ₹300 from select local spots.</p>
+                            <div class="coupon-code-container">
+                                <span>Code: </span>
+                                <span class="coupon-code">FREESHIP</span>
+                                <button class="copy-coupon-btn" data-code="FREESHIP" aria-label="Copy coupon FREESHIP">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="offer-visual">
+                            <i class="fas fa-truck-ramp-box floating-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Offer 3 -->
+                    <div class="offer-card offer-card-amber scroll-reveal" data-origin="right" data-delay="300">
+                        <div class="offer-badge">30% OFF</div>
+                        <div class="offer-details">
+                            <h3>Weekend Feast Pack</h3>
+                            <p>Save 30% on family platters and meal combos every Saturday & Sunday.</p>
+                            <div class="coupon-code-container">
+                                <span>Code: </span>
+                                <span class="coupon-code">WEEKEND30</span>
+                                <button class="copy-coupon-btn" data-code="WEEKEND30" aria-label="Copy coupon WEEKEND30">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="offer-visual">
+                            <i class="fas fa-drumstick-bite floating-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Categories Section -->
+        <section id="categories" class="categories-section section-padding">
+            <div class="container">
+                <div class="section-header scroll-reveal" data-origin="top">
+                    <span class="section-tagline">What's on your mind?</span>
+                    <h2 class="section-title">Popular <span class="gradient-text">Categories</span></h2>
+                    <p class="section-subtitle">Explore a wide array of culinary varieties prepared by expert chefs.</p>
+                </div>
+
+                <div class="categories-grid scroll-reveal" data-origin="bottom">
+                    <!-- Category 1: Pizza -->
+                    <div class="category-card" data-category="pizza">
+                        <div class="category-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=300&q=80" alt="Pizza category" loading="lazy">
+                        </div>
+                        <div class="category-info">
+                            <h3>Pizza</h3>
+                            <span>120+ Options</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 2: Burger -->
+                    <div class="category-card" data-category="burger">
+                        <div class="category-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=300&q=80" alt="Burger category" loading="lazy">
+                        </div>
+                        <div class="category-info">
+                            <h3>Burgers</h3>
+                            <span>80+ Options</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 3: Sushi -->
+                    <div class="category-card" data-category="sushi">
+                        <div class="category-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=300&q=80" alt="Sushi category" loading="lazy">
+                        </div>
+                        <div class="category-info">
+                            <h3>Sushi</h3>
+                            <span>45+ Options</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 4: Pasta -->
+                    <div class="category-card" data-category="pasta">
+                        <div class="category-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=300&q=80" alt="Pasta category" loading="lazy">
+                        </div>
+                        <div class="category-info">
+                            <h3>Pasta</h3>
+                            <span>60+ Options</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 5: Desserts -->
+                    <div class="category-card" data-category="dessert">
+                        <div class="category-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=300&q=80" alt="Desserts category" loading="lazy">
+                        </div>
+                        <div class="category-info">
+                            <h3>Desserts</h3>
+                            <span>95+ Options</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 6: Healthy -->
+                    <div class="category-card" data-category="healthy">
+                        <div class="category-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=300&q=80" alt="Healthy category" loading="lazy">
+                        </div>
+                        <div class="category-info">
+                            <h3>Healthy</h3>
+                            <span>50+ Options</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Restaurants Section -->
+        <section id="restaurants" class="restaurants-section section-padding">
+            <div class="container">
+                <div class="section-header scroll-reveal" data-origin="top">
+                    <span class="section-tagline">Order from top spots</span>
+                    <h2 class="section-title">Featured <span class="gradient-text">Restaurants</span></h2>
+                    <p class="section-subtitle">Handpicked dining spots known for outstanding taste, speed, and safety standards.</p>
+                </div>
+
+                <div class="restaurants-grid" id="restaurants-container">
+                    <!-- Populated dynamically by JS via backend routing -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section id="why-us" class="why-us-section section-padding">
+            <div class="container">
+                <div class="section-header scroll-reveal" data-origin="top">
+                    <span class="section-tagline">Why GourmetExpress?</span>
+                    <h2 class="section-title">We Deliver the <span class="gradient-text">Best Experience</span></h2>
+                    <p class="section-subtitle">Discover what sets our premium delivery service apart from the competition.</p>
+                </div>
+
+                <div class="why-us-grid">
+                    <!-- Feature 1: Fast Delivery -->
+                    <div class="why-us-card scroll-reveal" data-origin="left" data-delay="100">
+                        <div class="feature-icon-box pink-accent">
+                            <i class="fas fa-gauge-high"></i>
+                        </div>
+                        <h3>Super Fast Delivery</h3>
+                        <p>Our dedicated delivery fleet ensures your food is picked up fresh and delivered hot under 30 minutes, or you get your money back.</p>
+                    </div>
+
+                    <!-- Feature 2: Quality Food -->
+                    <div class="why-us-card scroll-reveal" data-origin="bottom" data-delay="200">
+                        <div class="feature-icon-box violet-accent">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3>Fresh & Healthy</h3>
+                        <p>We work exclusively with certified partners who sourcing organic, fresh, and high-quality ingredients for every dish.</p>
+                    </div>
+
+                    <!-- Feature 3: Best Prices -->
+                    <div class="why-us-card scroll-reveal" data-origin="bottom" data-delay="300">
+                        <div class="feature-icon-box gold-accent">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <h3>Unbeatable Discounts</h3>
+                        <p>Save more every day with seasonal deals, exclusive restaurant coupons, reward coins, and free delivery on selected orders.</p>
+                    </div>
+
+                    <!-- Feature 4: 24/7 Support -->
+                    <div class="why-us-card scroll-reveal" data-origin="right" data-delay="400">
+                        <div class="feature-icon-box blue-accent">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>24/7 Premium Support</h3>
+                        <p>Our priority chat support team is online round-the-clock to instantly resolve order queries, refund disputes, or dietary changes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Food Gallery Section with Zoom/Overlay -->
+        <section id="gallery" class="gallery-section section-padding">
+            <div class="container">
+                <div class="section-header scroll-reveal" data-origin="top">
+                    <span class="section-tagline">Visual Cravings</span>
+                    <h2 class="section-title">Gourmet <span class="gradient-text">Food Gallery</span></h2>
+                    <p class="section-subtitle">Feast your eyes on some of our highly popular signature chef creations.</p>
+                </div>
+
+                <div class="gallery-grid">
+                    <!-- Gallery Item 1 -->
+                    <div class="gallery-item scroll-reveal" data-origin="bottom" data-delay="100">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="Charcoal Grilled Ribeye Steak" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Charcoal Grilled Ribeye</h3>
+                                <p>Slow cooked with rosemary and garlic butter.</p>
+                                <span class="gallery-price">₹799</span>
+                            </div>
+                            <button class="gallery-add-btn add-to-cart-trigger" aria-label="Add Ribeye to cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div class="gallery-item scroll-reveal" data-origin="bottom" data-delay="200">
+                        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80" alt="Spicy Tonkotsu Ramen" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Spicy Tonkotsu Ramen</h3>
+                                <p>Pork broth, soft egg, noodles, and chili oil.</p>
+                                <span class="gallery-price">₹499</span>
+                            </div>
+                            <button class="gallery-add-btn add-to-cart-trigger" aria-label="Add Ramen to cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div class="gallery-item scroll-reveal" data-origin="bottom" data-delay="300">
+                        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80" alt="Smoked Salmon Tacos" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Smoked Salmon Tacos</h3>
+                                <p>Avocado crema, coriander, and fresh lime.</p>
+                                <span class="gallery-price">₹399</span>
+                            </div>
+                            <button class="gallery-add-btn add-to-cart-trigger" aria-label="Add Tacos to cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 4 -->
+                    <div class="gallery-item scroll-reveal" data-origin="bottom" data-delay="100">
+                        <img src="https://images.unsplash.com/photo-1501443715934-627181245280?auto=format&fit=crop&w=600&q=80" alt="Artisanal Pistachio Gelato" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Artisanal Pistachio Gelato</h3>
+                                <p>Rich Sicilian pistachio with crushed kernels.</p>
+                                <span class="gallery-price">₹249</span>
+                            </div>
+                            <button class="gallery-add-btn add-to-cart-trigger" aria-label="Add Gelato to cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 5 -->
+                    <div class="gallery-item scroll-reveal" data-origin="bottom" data-delay="200">
+                        <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80" alt="Steamed Shrimp Dim Sum" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Steamed Shrimp Dim Sum</h3>
+                                <p>Delicate handrolled parcel with sweet soy sauce.</p>
+                                <span class="gallery-price">₹299</span>
+                            </div>
+                            <button class="gallery-add-btn add-to-cart-trigger" aria-label="Add Dim Sum to cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 6 -->
+                    <div class="gallery-item scroll-reveal" data-origin="bottom" data-delay="300">
+                        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80" alt="Classic Mojito Mocktail" loading="lazy">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Classic Mojito Mocktail</h3>
+                                <p>Crushed mint, fresh lime juice, and soda fizz.</p>
+                                <span class="gallery-price">₹149</span>
+                            </div>
+                            <button class="gallery-add-btn add-to-cart-trigger" aria-label="Add Mocktail to cart">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonial Slider Section -->
+        <section id="testimonials" class="testimonials-section section-padding">
+            <div class="container">
+                <div class="section-header scroll-reveal" data-origin="top">
+                    <span class="section-tagline">Real customer feedback</span>
+                    <h2 class="section-title">What Our Customers <span class="gradient-text">Say About Us</span></h2>
+                    <p class="section-subtitle">Read unfiltered stories from users who trust us for their daily cravings.</p>
+                </div>
+
+                <div class="testimonials-slider-container scroll-reveal" data-origin="bottom">
+                    <div class="testimonials-wrapper">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-slide active">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <p class="testimonial-text">
+                                "GourmetExpress is an absolute lifesaver. The delivery is consistently under 25 minutes, and the food arrives steaming hot! The user interface is incredibly fast and intuitive. Highly recommend the healthy bowls from The Green Bowl."
+                            </p>
+                            <div class="testimonial-author">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Sarah Jenkins" class="author-avatar" loading="lazy">
+                                <div class="author-info">
+                                    <h4 class="author-name">Sarah Jenkins</h4>
+                                    <span class="author-role">Corporate Manager</span>
+                                </div>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-slide">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <p class="testimonial-text">
+                                "The special coupon discounts are unparalleled! I saved over $15 on my first order using WELCOME50 and the Free Delivery badge is very easy to claim. I love their responsive customer support; they resolved my dish change request in seconds."
+                            </p>
+                            <div class="testimonial-author">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Marcus Chen" class="author-avatar" loading="lazy">
+                                <div class="author-info">
+                                    <h4 class="author-name">Marcus Chen</h4>
+                                    <span class="author-role">Software Engineer</span>
+                                </div>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-slide">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <p class="testimonial-text">
+                                "Being a foodie, visual aesthetics matter to me. The food photography on this platform is gorgeous and matches the actual food delivered! The sushi from Sushi Master is incredibly fresh. GourmetExpress is my absolute go-to every single week."
+                            </p>
+                            <div class="testimonial-author">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80" alt="Elena Rostova" class="author-avatar" loading="lazy">
+                                <div class="author-info">
+                                    <h4 class="author-name">Elena Rostova</h4>
+                                    <span class="author-role">Food Blogger</span>
+                                </div>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slider Controls -->
+                    <div class="slider-controls">
+                        <button class="slider-arrow prev-arrow" id="prev-review" aria-label="Previous testimonial">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="slider-dots" id="slider-dots-container">
+                            <!-- Populated by JS -->
+                        </div>
+                        <button class="slider-arrow next-arrow" id="next-review" aria-label="Next testimonial">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mobile App Promotion Section -->
+        <section class="app-promotion-section section-padding">
+            <div class="container">
+                <div class="app-grid">
+                    <!-- Column 1: Mockup Mobile App -->
+                    <div class="app-visual-wrapper scroll-reveal" data-origin="left">
+                        <div class="phone-frame">
+                            <div class="phone-screen">
+                                <div class="phone-header">
+                                    <div class="phone-time">12:30</div>
+                                    <div class="phone-notch"></div>
+                                    <div class="phone-icons">
+                                        <i class="fas fa-signal"></i>
+                                        <i class="fas fa-wifi"></i>
+                                        <i class="fas fa-battery-three-quarters"></i>
+                                    </div>
+                                </div>
+                                <div class="phone-body">
+                                    <div class="phone-app-header">
+                                        <div class="phone-user-greet">
+                                            <span>Deliver to</span>
+                                            <strong>Home (Hyderabad) <i class="fas fa-caret-down"></i></strong>
+                                        </div>
+                                        <div class="phone-notification"><i class="far fa-bell"></i></div>
+                                    </div>
+                                    
+                                    <div class="phone-search-mock">
+                                        <i class="fas fa-search"></i>
+                                        <span>Search dishes, restaurants...</span>
+                                    </div>
+
+                                    <div class="phone-promo-slider">
+                                        <div class="phone-promo-card">
+                                            <span>Free Delivery</span>
+                                            <h3>Sushi Offer</h3>
+                                            <p>Use code: FREEJAP</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="phone-section-title">Popular Items</div>
+                                    <div class="phone-food-list">
+                                        <div class="phone-food-card">
+                                            <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=150&q=80" alt="mock app sushi">
+                                            <div class="phone-food-info">
+                                                <h4>Spicy Tuna Roll</h4>
+                                                <span>4.8 ★ (120+)</span>
+                                                <strong>$12.99</strong>
+                                            </div>
+                                            <button class="phone-add-btn"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                        <div class="phone-food-card">
+                                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=150&q=80" alt="mock app burger">
+                                            <div class="phone-food-info">
+                                                <h4>Cheeseburger</h4>
+                                                <span>4.7 ★ (340+)</span>
+                                                <strong>$9.50</strong>
+                                            </div>
+                                            <button class="phone-add-btn"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div class="phone-bottom-nav">
+                                        <div class="p-nav-item active"><i class="fas fa-house"></i><span>Home</span></div>
+                                        <div class="p-nav-item"><i class="fas fa-compass"></i><span>Explore</span></div>
+                                        <div class="p-nav-item"><i class="fas fa-cart-shopping"></i><span>Cart</span></div>
+                                        <div class="p-nav-item"><i class="fas fa-user"></i><span>Profile</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="phone-home-button"></div>
+                        </div>
+                        <!-- Floating glowing cards -->
+                        <div class="floating-badge badge-top-right bounce-element">
+                            <div class="badge-icon"><i class="fas fa-star text-amber"></i></div>
+                            <div>
+                                <h4>4.9 Rating</h4>
+                                <span>On App Store</span>
+                            </div>
+                        </div>
+                        <div class="floating-badge badge-bottom-left bounce-element-delayed">
+                            <div class="badge-icon"><i class="fas fa-clock text-pink"></i></div>
+                            <div>
+                                <h4>Fastest Delivery</h4>
+                                <span>Avg. 22 Mins</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Promo Text -->
+                    <div class="app-content-wrapper scroll-reveal" data-origin="right">
+                        <span class="section-tagline">GourmetExpress App</span>
+                        <h2>Food delivery in the palm <br>of your <span class="gradient-text">hand</span></h2>
+                        <p class="app-desc">
+                            Experience the ultimate convenience of premium food delivery. Browse customized restaurant menus, customize dishes to your taste, track orders on a real-time GPS map, and pay with extreme ease using our mobile application.
+                        </p>
+                        
+                        <ul class="app-features-list">
+                            <li>
+                                <span class="chk-icon"><i class="fas fa-check"></i></span>
+                                <div>
+                                    <strong>Live Order Tracking</strong>
+                                    <p>Watch your delivery partner on a real-time map from the kitchen stove to your doorstep.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="chk-icon"><i class="fas fa-check"></i></span>
+                                <div>
+                                    <strong>Instant Personalized Deals</strong>
+                                    <p>Receive notifications for flash discounts from your top 5 favorite restaurants.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="chk-icon"><i class="fas fa-check"></i></span>
+                                <div>
+                                    <strong>One-Click Express Checkout</strong>
+                                    <p>Save multiple delivery addresses and complete purchases securely in seconds.</p>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="app-download-badges">
+                            <a href="#" class="download-badge glow-hover" aria-label="Download on the App Store">
+                                <i class="fab fa-apple badge-icon-brand"></i>
+                                <div class="badge-badge-text">
+                                    <span>Download on the</span>
+                                    <strong>App Store</strong>
+                                </div>
+                            </a>
+                            <a href="#" class="download-badge glow-hover" aria-label="Get it on Google Play">
+                                <i class="fab fa-google-play badge-icon-brand"></i>
+                                <div class="badge-badge-text">
+                                    <span>GET IT ON</span>
+                                    <strong>Google Play</strong>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Dark Premium Footer -->
+    <footer class="premium-footer" id="contact">
+        <div class="container">
+            <div class="footer-top-grid">
+                <!-- Col 1: Logo & Info -->
+                <div class="footer-col footer-col-about scroll-reveal" data-origin="left">
+                    <a href="#" class="footer-logo">
+                        <i class="fas fa-fire footer-logo-icon"></i>
+                        <span class="logo-text">Gourmet<span class="gradient-text">Express</span></span>
+                    </a>
+                    <p class="footer-about-text">
+                        A premium restaurant aggregator and contactless home delivery network bringing your neighborhood's culinary masterpieces to your dining table.
+                    </p>
+                    <div class="footer-social-icons">
+                        <a href="#" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Follow us on X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" aria-label="Follow us on Youtube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Follow us on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation Links -->
+                <div class="footer-col scroll-reveal" data-origin="bottom" data-delay="100">
+                    <h3>Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="#hero">Home Page</a></li>
+                        <li><a href="#categories">Food Categories</a></li>
+                        <li><a href="#restaurants">Top Restaurants</a></li>
+                        <li><a href="#offers">Special Offers</a></li>
+                        <li><a href="#gallery">Food Gallery</a></li>
+                        <li><a href="#testimonials">Customer Reviews</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Support Info -->
+                <div class="footer-col scroll-reveal" data-origin="bottom" data-delay="200">
+                    <h3>Support & Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-phone footer-contact-icon"></i> +1 (800) 555-FOOD</a></li>
+                        <li><a href="#"><i class="fas fa-envelope footer-contact-icon"></i> help@gourmetexpress.com</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt footer-contact-icon"></i> 742 Evergreen Terrace, NY</a></li>
+                        <li><a href="#">Help Center & FAQs</a></li>
+                        <li><a href="#">Merchant Portal</a></li>
+                        <li><a href="#">Partner Rider Registry</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Newsletter -->
+                <div class="footer-col footer-col-news scroll-reveal" data-origin="right" data-delay="300" id="newsletter">
+                    <h3>Join the Gourmet Club</h3>
+                    <p>Subscribe to receive weekly exclusive VIP promo codes, chef specials notifications, and local restaurant news.</p>
+                    <form class="newsletter-form" id="newsletter-form" novalidate>
+                        <div class="newsletter-input-wrapper">
+                            <i class="far fa-envelope mail-icon"></i>
+                            <input type="email" id="newsletter-email" placeholder="Your Email Address" aria-label="Email address for newsletter" required>
+                        </div>
+                        <button type="submit" class="btn-newsletter-submit">
+                            <span>Subscribe</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    <span id="newsletter-status" class="newsletter-status hidden"></span>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 GourmetExpress Inc. All rights reserved. Designed with passion for premium dining.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <span class="bullet-dot">•</span>
+                        <a href="#">Terms of Service</a>
+                        <span class="bullet-dot">•</span>
+                        <a href="#">Cookie Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Scroll back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Script File -->
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="payment-style.css">
+    <link rel="stylesheet" href="css/payment-style.css">
 </head>
 <body>
 
@@ -411,6 +411,10 @@
                                     <svg class="cod-alert-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                                     <p>Due to safety guidelines, we recommend choosing digital payment options. If you choose COD, you can pay using cash, UPI, or cards to the delivery partner upon arrival.</p>
                                 </div>
+                                <button type="button" class="btn-primary btn-block btn-pay" id="confirm-cod-btn" style="margin-top: 15px; background: var(--gradient-primary); border: none; height: 50px; font-size: 1.1rem;">
+                                    <span>Confirm Cash on Delivery Order</span>
+                                    <svg class="pay-arrow-icon" viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor; margin-left: 8px;"><path d="M12 4l-1.41 1.41L15.17 10H4v2h11.17l-4.58 4.59L12 18l6-6z"/></svg>
+                                </button>
                             </div>
                         </div>
 
@@ -608,12 +612,12 @@
                     <div class="restaurant-name-heading">
                         <span class="rest-icon">🍕</span>
                         <div>
-                            <h3>Trattoria Pizzeria</h3>
+                            <h3 id="success-restaurant-name">Trattoria Pizzeria</h3>
                             <p>Super fast delivery • Outer Ring Road</p>
                         </div>
                     </div>
                     <div class="success-bill-snippet">
-                        <span>Paid amount</span>
+                        <span id="success-paid-label">Paid amount</span>
                         <strong id="success-paid-amount">₹1,122</strong>
                     </div>
                 </div>
@@ -689,13 +693,13 @@
 
                 <div class="success-actions">
                     <button class="btn btn-primary" id="track-on-map-btn">Track on Map</button>
-                    <button class="btn btn-secondary" onclick="window.location.href='dashboard.html'">Order Something Else</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='index.html'">Order Something Else</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Core Script -->
-    <script src="payment-script.js"></script>
+    <script src="js/payment-script.js"></script>
 </body>
 </html>
