@@ -6,14 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // ------------------------------------------
     // 1. STATE SYSTEM
     // ------------------------------------------
+    const savedCart = localStorage.getItem('gourmet_cart');
+    const initialCart = savedCart ? JSON.parse(savedCart) : [
+        { id: 1, name: 'Truffle Mushroom Risotto', price: 380, qty: 1, veg: true },
+        { id: 2, name: 'Avocado & Feta Sourdough', price: 190, qty: 2, veg: true },
+        { id: 3, name: 'Classic Roasted Tiramisu', price: 250, qty: 1, veg: false }
+    ];
+
     const state = {
-        cart: localStorage.getItem('foodExpressCart') 
-            ? JSON.parse(localStorage.getItem('foodExpressCart')) 
-            : [
-                { id: 1, name: 'Truffle Mushroom Risotto', price: 380, qty: 1, veg: true },
-                { id: 2, name: 'Avocado & Feta Sourdough', price: 190, qty: 2, veg: true },
-                { id: 3, name: 'Classic Roasted Tiramisu', price: 250, qty: 1, veg: false }
-            ],
+        cart: initialCart,
         tip: 0,
         coupon: null,
         goldMember: false,
@@ -137,8 +138,14 @@ document.addEventListener('DOMContentLoaded', () => {
             activeItemsCount += item.qty;
         });
 
-        // Update items count in UI
-        cartItemCountEl.textContent = `${activeItemsCount} item${activeItemsCount > 1 ? 's' : ''} from Trattoria Pizzeria`;
+        // Update items count and restaurant name in UI
+        const restaurantName = localStorage.getItem('gourmet_restaurant') || 'GourmetExpress';
+        cartItemCountEl.textContent = `${activeItemsCount} item${activeItemsCount > 1 ? 's' : ''} from ${restaurantName}`;
+        
+        const successResNameEl = document.getElementById('success-restaurant-name');
+        if (successResNameEl) {
+            successResNameEl.textContent = restaurantName;
+        }
 
         // Calculate Delivery Fee (Waived if Food on Wheels Gold is checked OR if FREEDEL coupon is applied)
         let deliveryFee = state.deliveryFeeDefault;
@@ -218,7 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
         successPaidAmountEl.textContent = `₹${formattedGrandTotal}`;
         
         // Pay Button Label
-        payTextEl.textContent = `Pay Securely ₹${formattedGrandTotal}`;
+        if (state.paymentMethod === 'cod') {
+            payTextEl.textContent = `Confirm COD Order ₹${formattedGrandTotal}`;
+        } else {
+            payTextEl.textContent = `Pay Securely ₹${formattedGrandTotal}`;
+        }
     };
 
     // Populate Cart list dynamically inside HTML
@@ -258,12 +269,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.qty--;
                     renderCartItems();
                     updateReceipt();
+                    localStorage.setItem('gourmet_cart', JSON.stringify(state.cart));
                 } else if (item && item.qty === 1) {
                     // Alert or simple prompt to delete
                     if (state.cart.length > 1) {
                         state.cart = state.cart.filter(c => c.id !== id);
                         renderCartItems();
                         updateReceipt();
+                        localStorage.setItem('gourmet_cart', JSON.stringify(state.cart));
                     } else {
                         alert("You must have at least one item to proceed!");
                     }
@@ -280,6 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.qty++;
                     renderCartItems();
                     updateReceipt();
+                    localStorage.setItem('gourmet_cart', JSON.stringify(state.cart));
                 }
             });
         });
@@ -480,6 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
             accordion.classList.add('active');
             radio.checked = true;
             state.paymentMethod = radio.value;
+            updateReceipt();
 
             // Trigger accordion slide updates
             setTimeout(() => {
@@ -699,6 +714,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("Please select a bank to proceed.");
                 return;
             }
+        } else if (state.paymentMethod === 'cod') {
+            // Bypass OTP and trigger COD flow
+            triggerPaymentGatewayRedirect(true);
+            return;
         }
 
         // Show Secure Verification (OTP Modal)
@@ -710,6 +729,13 @@ document.addEventListener('DOMContentLoaded', () => {
             otpInputs[0].focus();
         }, 300);
     });
+
+    const confirmCodBtn = document.getElementById('confirm-cod-btn');
+    if (confirmCodBtn) {
+        confirmCodBtn.addEventListener('click', () => {
+            triggerPaymentGatewayRedirect(true);
+        });
+    }
 
     closeOtpModalBtn.addEventListener('click', () => {
         otpModal.classList.remove('show');
@@ -774,15 +800,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Simulate Gateway Processing states
-    const triggerPaymentGatewayRedirect = () => {
+    const triggerPaymentGatewayRedirect = (isCod = false) => {
         processingModal.classList.add('show');
         
-        const redirects = [
-            { text: 'Connecting securely with your bank...', time: 0 },
-            { text: 'Authorizing transaction amount...', time: 1000 },
-            { text: 'Securing confirmation token from gateway...', time: 2200 },
-            { text: 'Order details successfully confirmed!', time: 3500 }
-        ];
+        let redirects = [];
+        if (isCod) {
+            redirects = [
+                { text: 'Processing Cash on Delivery request...', time: 0 },
+                { text: 'Verifying delivery address parameters...', time: 1000 },
+                { text: 'Confirming COD booking with restaurant...', time: 2200 },
+                { text: 'Order details successfully confirmed!', time: 3500 }
+            ];
+        } else {
+            redirects = [
+                { text: 'Connecting securely with your bank...', time: 0 },
+                { text: 'Authorizing transaction amount...', time: 1000 },
+                { text: 'Securing confirmation token from gateway...', time: 2200 },
+                { text: 'Order details successfully confirmed!', time: 3500 }
+            ];
+        }
 
         redirects.forEach(step => {
             setTimeout(() => {
@@ -793,7 +829,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Final transition to Gorgeous Success Screen
         setTimeout(() => {
             processingModal.classList.remove('show');
-            showOrderSuccessScreen();
+            showOrderSuccessScreen(isCod);
         }, 4500);
     };
 
@@ -801,7 +837,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // ------------------------------------------
     // 11. CELEBRATION & TIMELINE PROGRESS SIMULATION
     // ------------------------------------------
-    const showOrderSuccessScreen = () => {
+    const showOrderSuccessScreen = (isCod = false) => {
+        const successPaidLabelEl = document.getElementById('success-paid-label');
+        if (successPaidLabelEl) {
+            successPaidLabelEl.textContent = isCod ? 'Payable amount (COD)' : 'Paid amount';
+        }
+
+        // Clear local storage cart and restaurant
+        localStorage.removeItem('gourmet_cart');
+        localStorage.removeItem('gourmet_restaurant');
+        
         successScreen.classList.add('show');
         
         // Trigger celebratory confetti drops

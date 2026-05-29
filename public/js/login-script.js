@@ -112,8 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('🎉 Login successful! Redirecting to dashboard...');
             // Reset form
             loginForm.reset();
-            // Redirect to dashboard
-            window.location.href = 'dashboard.html';
+            // Redirect to GourmetExpress dashboard
+            window.location.href = 'index.html';
         }, 2000);
     });
 
